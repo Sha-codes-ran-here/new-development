@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Online Civic Complaint Management System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px 40px 40px 40px;
+      background-color: #f9faff;
+      color: #222;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      border-bottom: 3px solid #0275d8;
+      padding-bottom: 15px;
+      margin-bottom: 30px;
+    }
+    header img {
+      width: 60px;
+      margin-right: 15px;
+    }
+    header h1 {
+      font-size: 1.6rem;
+      margin: 0;
+      color: #0275d8;
+    }
+    h2 {
+      color: #0275d8;
+      border-bottom: 2px solid #5bc0de;
+      padding-bottom: 8px;
+      margin-top: 25px;
+      margin-bottom: 15px;
+    }
+    form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      max-width: 650px;
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+    input[type="text"], input[type="email"], textarea, select {
+      width: 100%;
+      padding: 8px 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 13px;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+    input[type="submit"], button {
+      background-color: #0275d8;
+      border: none;
+      padding: 10px 22px;
+      color: white;
+      font-weight: 600;
+      font-size: 13px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+      margin-right: 10px;
+    }
+    input[type="submit"]:hover,
+    button:hover {
+      background-color: #025aa5;
+    }
+    .complaints-container {
+      max-width: 700px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      margin-bottom: 30px;
+    }
+    .complaint-item {
+      border-bottom: 1px solid #ddd;
+      padding: 12px 0;
+    }
+    .complaint-item:last-child {
+      border-bottom: none;
+    }
+    .complaint-item h3 {
+      margin: 0 0 8px 0;
+      color: #0275d8;
+    }
+    .complaint-item p {
+      margin: 2px 0;
+      font-size: 12.5px;
+    }
+    #complaintCount {
+      font-weight: 700;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+    #searchInput {
+      width: 65%;
+      padding: 8px 10px;
+      font-size: 13px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+    }
+    section#contact ul {
+      list-style:none; 
+      padding:0; 
+      font-size: 13px;
+      max-width: 700px;
+      margin-top: 20px;
+    }
+    section#contact ul li {
+      margin-bottom: 10px;
+    }
+    section#contact ul li a {
+      color: #0275d8;
+      text-decoration: none;
+    }
+    section#contact ul li a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/77/India_Government_Logo.svg" alt="Government Logo" />
+    <h1>Online Civic Complaint Management System</h1>
+  </header>
+
+  <form id="complaintForm" novalidate>
+    <label for="citizenName">Citizen Name</label>
+    <input type="text" id="citizenName" name="citizenName" placeholder="Your full name" required />
+
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email" placeholder="example@example.com" required />
+
+    <label for="phone">Phone Number</label>
+    <input type="text" id="phone" name="phone" placeholder="10 digit mobile number" pattern="^[0-9]{10}$" title="Enter 10 digit mobile number" />
+
+    <label for="complaintCategory">Complaint Category</label>
+    <select id="complaintCategory" name="complaintCategory" required>
+      <option disabled selected value="">Select category</option>
+      <option value="Road Repair">Road Repair</option>
+      <option value="Water Supply">Water Supply</option>
+      <option value="Sanitation">Sanitation</option>
+      <option value="Electricity">Electricity</option>
+      <option value="Garbage Management">Garbage Management</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <label for="complaintTitle">Complaint Title</label>
+    <input type="text" id="complaintTitle" name="complaintTitle" placeholder="Brief description" required />
+
+    <label for="complaintDescription">Complaint Description</label>
+    <textarea id="complaintDescription" name="complaintDescription" placeholder="Detailed description" required></textarea>
+
+    <input type="submit" value="Submit Complaint" />
+    <button type="button" id="clearBtn">Clear Form</button>
+  </form>
+
+  <div class="complaints-container">
+    <input type="text" id="searchInput" placeholder="Search complaints by Title or Name..." />
+    <div id="complaintCount">Total Complaints: 0</div>
+    <div id="complaintList">
+      <p>No complaints submitted yet.</p>
+    </div>
+  </div>
+
+  <section id="contact">
+    <h2>Contact Information</h2>
+    <ul>
+      <li>🏢 <strong>Municipal Corporation Office</strong>, 456 Civic Plaza, City Center, Your City, State, Postal Code</li>
+      <li>📞 Phone: +91 12345 67890</li>
+      <li>✉ Email: <a href="mailto:civic.support@yourcity.gov">civic.support@yourcity.gov</a></li>
+      <li>🌐 Website: <a href="https://www.yourcity.gov">www.yourcity.gov</a></li>
+    </ul>
+  </section>
+
+  <script>
+    const form = document.getElementById('complaintForm');
+    const complaintList = document.getElementById('complaintList');
+    const complaintCount = document.getElementById('complaintCount');
+    const clearBtn = document.getElementById('clearBtn');
+    const searchInput = document.getElementById('searchInput');
+
+    let complaints = [];
+
+    function updateComplaintCount() {
+      complaintCount.textContent = 'Total Complaints: ' + complaints.length;
+    }
+
+    function renderComplaints(filteredComplaints) {
+      complaintList.innerHTML = '';
+      if(filteredComplaints.length === 0) {
+        complaintList.innerHTML = '<p>No complaints found.</p>';
+        return;
+      }
+      filteredComplaints.forEach(complaint => {
+        const complaintDiv = document.createElement('div');
+        complaintDiv.classList.add('complaint-item');
+        complaintDiv.innerHTML = `
+          <h3>${complaint.complaintTitle}</h3>
+          <p><strong>Name:</strong> ${complaint.citizenName}</p>
+          <p><strong>Email:</strong> ${complaint.email}</p>
+          <p><strong>Category:</strong> ${complaint.complaintCategory}</p>
+          <p><strong>Phone:</strong> ${complaint.phone || 'N/A'}</p>
+          <p><strong>Description:</strong> ${complaint.complaintDescription}</p>
+          <p><small><em>Submitted on ${complaint.timestamp}</em></small></p>
+        `;
+        complaintList.appendChild(complaintDiv);
+      });
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if(!form.checkValidity()) {
+        alert('Please fill out all required fields correctly.');
+        return;
+      }
+      const complaint = {
+        citizenName: form.citizenName.value.trim(),
+        email: form.email.value.trim(),
+        phone: form.phone.value.trim(),
+        complaintCategory: form.complaintCategory.value,
+        complaintTitle: form.complaintTitle.value.trim(),
+        complaintDescription: form.complaintDescription.value.trim(),
+        timestamp: new Date().toLocaleString()
+      };
+      complaints.push(complaint);
+      updateComplaintCount();
+      renderComplaints(complaints);
+      form.reset();
+      alert('Your civic complaint has been submitted successfully.');
+    });
+
+    clearBtn.addEventListener('click', () => {
+      form.reset();
+    });
+
+    searchInput.addEventListener('input', () => {
+      const searchTerm = searchInput.value.toLowerCase();
+      const filteredComplaints = complaints.filter(c => 
+        c.complaintTitle.toLowerCase().includes(searchTerm) ||
+        c.citizenName.toLowerCase().includes(searchTerm));
+      renderComplaints(filteredComplaints);
+    });
+  </script>
+
+</body>
+</html>
