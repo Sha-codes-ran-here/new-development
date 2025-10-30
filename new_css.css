@@ -11,9 +11,16 @@ h1{
 h2{
     color: green;
 }
+h4{
+    color: purple !important;
+}
 .name{
     color: chocolate;
 }
 body{
     background-color: yellow;
 }
+.container {
+  text-align: center;
+}
+
